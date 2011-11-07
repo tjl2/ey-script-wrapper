@@ -9,7 +9,9 @@ Installation
 * Change the variables at the top of recipes/default.rb to match your command name,
 command to run and app name.
 * Then edit your custom cookbook main/recipes/default.rb and add
+
     require_recipe "ey-script-wrapper"
+
 
 Caveats
 =======
