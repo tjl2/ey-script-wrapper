@@ -16,4 +16,4 @@ command to run and app name.
 Caveats
 =======
 * This script has been written with the assumption that it will run on a util
-instance. Change line 17 of default.rb if that is not the case.
+instance. Change [line 17](https://github.com/tjl2/ey-script-wrapper/blob/master/recipes/default.rb#L17) of default.rb if that is not the case.
