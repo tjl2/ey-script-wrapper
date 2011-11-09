@@ -12,6 +12,12 @@ command_to_run = ''
 # Which app is this for?
 app_name = ''
 
+# Do we need to background this process?
+# If this command already runs as a daemon, then
+# set this to false. If it's something that usually
+# ties up a terminal, set to true
+run_in_background = true
+
 # Let's assume this will be done on a util instance...
 # Change this as necessary.
 if ['util'].include?(node[:instance_role])
@@ -26,7 +32,8 @@ if ['util'].include?(node[:instance_role])
     mode 0755
     source "wrapper.sh.erb"
     variables({:command_name => command_name,
-               :command_to_run => command_to_run})
+               :command_to_run => command_to_run,
+               :run_in_background => run_in_background})
   end
 
   template "/etc/monit.d/#{app_name}_#{command_name}.monitrc" do

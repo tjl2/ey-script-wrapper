@@ -6,10 +6,9 @@
 # /usr/local/bin/<%= "#{@app_name}_#{@command_name}_wrapper" %> app_name start|stop
 #
 
-# Change these 2 variables appropriately:
+# These variables are managed by Chef - modify them in recipes/default.rb
 COMMAND_NAME="<%= @command_name %>" # Alpha-numeric characters and underscores only
 COMMAND="<%= @command_to_run %>"
-
 
 CURDIR=`pwd`
 PATH=/bin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:$PATH
@@ -43,8 +42,8 @@ if [ -d $RAILS_ROOT ]; then
         fi
         rm -f $PID_FILE
       fi
-      echo $$ > $PID_FILE;
-      exec $COMMAND 1>$EXEC_LOG_FILE 2>&1 
+      exec $COMMAND 1>$EXEC_LOG_FILE 2>&1 <%= "&" if @run_in_background %> 
+      <%= @run_in_background ? "echo $! > $PID_FILE;" : "echo $$ > $PID_FILE" %>
       ;;
     stop)
       echo "Stopping $COMMAND_NAME"
