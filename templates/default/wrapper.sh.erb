@@ -46,10 +46,24 @@ if [ -d $RAILS_ROOT ]; then
       <%= @run_in_background ? "echo $! > $PID_FILE;" : "echo $$ > $PID_FILE" %>
       ;;
     stop)
+      GRACE_TIME=${GRACE_TIME:-40}
       echo "Stopping $COMMAND_NAME"
       if [ -f $PID_FILE ]; then
-        kill `cat $PID_FILE` 2>/dev/null; true
+        PID=`cat $PID_FILE`
+        kill $PID 2>/dev/null; true
+        SLEEP_COUNT=0
+        while [ -e /proc/$PID ]; do
+          sleep .25
+          let "SLEEP_COUNT+=1"
+          if(( "$SLEEP_COUNT" > $GRACE_TIME )); then
+            echo "Stop wait time exceeded. Killing..."
+            kill -9 $PID 2>/dev/null; true
+            break
+          fi
+        done
         rm $PID_FILE
+      else
+        echo "No PID file found! Cannot stop $COMMAND_NAME"
       fi
       ;;
     *)
