@@ -26,7 +26,7 @@ if ['util'].include?(node[:instance_role])
     action :enable
   end
 
-  template "/usr/local/bin/#{app_name}_#{command_name}_wrapper" do
+  template "/usr/local/bin/#{command_name}_wrapper" do
     owner node[:owner_name]
     group node[:group_name]
     mode 0755
