@@ -18,4 +18,4 @@ the script runs as a daemon or not.
 Caveats
 =======
 * This script has been written with the assumption that it will run on a util
-instance. Change [line 19](https://github.com/tjl2/ey-script-wrapper/blob/master/recipes/default.rb#L19) of default.rb if that is not the case.
+instance. Change [line 23](https://github.com/tjl2/ey-script-wrapper/blob/master/recipes/default.rb#L23) of default.rb if that is not the case.
